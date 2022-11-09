@@ -44,6 +44,6 @@ io.sockets.on("connection", function (socket) {
   }
 });
 
-server.listen(8181, () => {
+server.listen(process.env.PORT || 8181, () => {
   console.log("listening on *:3000");
 });
