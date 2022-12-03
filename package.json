@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "node server.js"
+    "start": "node app.js"
   },
   "dependencies": {
     "browserify": "^17.0.0",
@@ -9,5 +9,8 @@
     "socket.io": "^4.5.3",
     "socket.io-client": "^4.5.3",
     "webrtc-adapter": "^8.2.0"
+  },
+  "engines": {
+    "node": "14.x"
   }
 }
