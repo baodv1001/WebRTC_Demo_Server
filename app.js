@@ -69,10 +69,6 @@ io.sockets.on("connection", function (socket) {
   }
 });
 
-server.use("/", (req, res) => {
-  res.send("Hello World!");
-});
-
 server.listen(process.env.PORT || 8181, () => {
   console.log("listening on *:3000");
 });
