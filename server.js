@@ -13,7 +13,32 @@ io.sockets.on("connection", function (socket) {
   socket.on("message", async function (message) {
     log("S --> got message: ", message);
     // channel-only broadcast...
-    socket.to(message.room).emit("message", message.message);
+
+    if (message.message.type === "offer") {
+      var destination = message.destinationId;
+      message = {
+        ...message,
+        destinationId: message.sourceId,
+      };
+      io.to(destination).emit("message", message);
+    }
+
+    if (message.message == "got user media") {
+      message = {
+        ...message,
+        destinationId: message.sourceId,
+      };
+    }
+
+    if (message.message.type == "answer" || message.message == "bye") {
+      io.to(message.destinationId).emit("message", message);
+    }
+    if (
+      message.message.type == "candidate" ||
+      message.message == "got user media"
+    ) {
+      socket.to(message.room).emit("message", message);
+    }
   });
   // Handle 'create or join' messages
   socket.on("create or join", async function (room) {
@@ -25,11 +50,11 @@ io.sockets.on("connection", function (socket) {
     if (numClients == 0) {
       socket.join(room);
       socket.emit("created", room);
-    } else if (numClients == 1 || numClients == 2) {
+    } else if (numClients <= 4) {
       // Second client joining...
       io.sockets.in(room).emit("join", room);
       socket.join(room);
-      socket.emit("joined", room);
+      socket.emit("joined", numClients);
     } else {
       // max two clients
       socket.emit("full", room);
