@@ -6,6 +6,13 @@ var http = require("http");
 const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
+// Initialize Channels client
+let channels = new Pusher("app-key", {
+  cluster: "cluster-region",
+});
+
+// Subscribe to the appropriate channel
+let channel = channels.subscribe("channel-name");
 
 // Let's start managing connections...
 io.sockets.on("connection", function (socket) {

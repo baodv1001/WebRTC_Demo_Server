@@ -1,15 +1,9 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "./app.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/"
-    }
-  ]
+  "env": {
+    "APP_ID": "@channels-app-id",
+    "KEY": "e09864a36326ca894416",
+    "SECRET": "@channels-app-secret",
+    "CLUSTER": "ap1"
+  }
 }
