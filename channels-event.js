@@ -1,18 +1,8 @@
 const Channels = require("pusher");
 
-const {
-  APP_ID: appId,
-  KEY: key,
-  SECRET: secret,
-  CLUSTER: cluster,
-} = process.env;
+const { APP_ID: appId, KEY: key, SECRET: secret,  CLUSTER: cluster} = process.env;
 
-const channels = new Channels({
-  appId,
-  key,
-  secret,
-  cluster,
-});
+const channels = new Channels({ appId, key, secret, cluster});
 
 module.exports = (req, res) => {
   const data = req.body;
